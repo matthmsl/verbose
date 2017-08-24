@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"time"
-	"io/ioutil"
 	"os"
 )
 
