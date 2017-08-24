@@ -52,7 +52,7 @@ func log(msg string){
 		f,err:=os.OpenFile(filename, os.O_APPEND|os.O_WRONLY,0600)
 		defer f.Close()
 		if err!=nil{ panic(err)}
-		_,err=f.WriteString(msg)
+		_,err=f.WriteString(msg+"\n")
 		if err!=nil{ panic(err)}
 	}
 
