@@ -4,28 +4,55 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"time"
+	"io/ioutil"
+	"os"
 )
 
 var debug = false
+var file = false
+var filename string
+
+func SetLogFile(name string){
+	file=true
+	filename=name
+	os.Create(filename)
+}
 
 func SetDebugMode() {
 	debug = true
 }
 
 func Info(info ...interface{}) {
-	color.Green("[INFO] " + time.Now().String() + " " + fmt.Sprint(info))
+	msg:="[INFO] " + time.Now().String() + " " + fmt.Sprint(info)
+	color.Green(msg)
+	log(msg)
 }
 
 func Warn(warning ...interface{}) {
-	color.Yellow("[WARN] " + time.Now().String() + " " + fmt.Sprint(warning))
+	msg:="[WARN] " + time.Now().String() + " " + fmt.Sprint(warning)
+	color.Yellow(msg)
+	log(msg)
 }
 
 func Debug(debugInfo ...interface{}) {
 	if debug {
-		color.Blue("[DEBUG] " + time.Now().String() + " " + fmt.Sprint(debugInfo))
+		msg:="[DEBUG] " + time.Now().String() + " " + fmt.Sprint(debugInfo)
+		color.Blue(msg)
+		log(msg)
 	}
 }
 
 func Err(error ...interface{}) {
-	color.Red("[ERROR] " + time.Now().String() + " " + fmt.Sprint(error))
+	msg:="[ERROR] " + time.Now().String() + " " + fmt.Sprint(error)
+	color.Red(msg)
+	log(msg)
+}
+
+func log(msg string){
+	if file{
+		b:=[]byte(msg)
+		err:=ioutil.WriteFile(filename,b,os.ModeAppend)
+		if err!=nil{ panic(err)}
+	}
+
 }
