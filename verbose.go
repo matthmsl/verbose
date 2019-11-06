@@ -45,7 +45,7 @@ func EnableSentry(dsn string, release string) {
 func Info(info ...interface{}) {
 	msg := "[INFO] " + time.Now().String() + " " + fmt.Sprint(info...)
 	if sentryReporting {
-		sentryProcess(msg, sentry.LevelInfo)
+		sentryProcess(fmt.Sprint(info...), sentry.LevelInfo)
 	}
 	color.Green(msg)
 	log(msg)
@@ -54,7 +54,7 @@ func Info(info ...interface{}) {
 func Warn(warning ...interface{}) {
 	msg := "[WARN] " + time.Now().String() + " " + fmt.Sprint(warning...)
 	if sentryReporting {
-		sentryProcess(msg, sentry.LevelWarning)
+		sentryProcess(fmt.Sprint(warning...), sentry.LevelWarning)
 	}
 	color.Yellow(msg)
 	log(msg)
@@ -64,7 +64,7 @@ func Debug(debugInfo ...interface{}) {
 	if debug {
 		msg := "[DEBUG] " + time.Now().String() + " " + fmt.Sprint(debugInfo...)
 		if sentryReporting {
-			sentryProcess(msg, sentry.LevelDebug)
+			sentryProcess(fmt.Sprint(debugInfo...), sentry.LevelDebug)
 		}
 		color.Blue(msg)
 		log(msg)
@@ -74,7 +74,7 @@ func Debug(debugInfo ...interface{}) {
 func Err(error ...interface{}) {
 	msg := "[ERROR] " + time.Now().String() + " " + fmt.Sprint(error...)
 	if sentryReporting {
-		sentryProcess(msg, sentry.LevelError)
+		sentryProcess(fmt.Sprint(error...), sentry.LevelError)
 	}
 	color.Red(msg)
 	log(msg)
